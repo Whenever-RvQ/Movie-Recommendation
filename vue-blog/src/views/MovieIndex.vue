@@ -11,16 +11,16 @@
           @mouseenter="showTrailer = index"
           @mouseleave="showTrailer = -1"
         >
-          <img :src="item.poster" :alt="item.title" class="carousel-img">
+          <img :src="item.cover" :alt="item.title" class="carousel-img">
           <div class="carousel-mask"></div>
           <div class="carousel-info">
             <div class="carousel-tags">
               <span class="tag hot" v-if="item.isHot">热映中</span>
-              <span class="tag score">{{ item.score }}</span>
+              <span class="tag score">{{ item.score||0 }}</span>
               <span class="tag date">{{ item.releaseDate }}</span>
             </div>
             <h2 class="carousel-title">{{ item.title }}</h2>
-            <p class="carousel-desc">{{ item.desc }}</p>
+            <p class="carousel-desc">{{ item.body }}</p>
             <el-button 
               type="primary" 
               size="medium"
@@ -29,14 +29,6 @@
             >
               <i class="el-icon-play"></i> 查看详情
             </el-button>
-          </div>
-          <!-- 预告片预览小窗（hover显示） -->
-          <div class="trailer-preview" v-show="showTrailer === index">
-            <div class="trailer-content">
-              <i class="el-icon-video-play trailer-icon"></i>
-              <span class="trailer-text">预告片预览</span>
-            </div>
-            <p class="trailer-hint">鼠标移开关闭预览</p>
           </div>
         </div>
       </div>
@@ -94,8 +86,8 @@
               @click="goToDetail(movie.id)"
             >
               <div class="movie-card__poster">
-                <img :src="movie.poster" :alt="movie.title" class="poster-img">
-                <span class="movie-score">{{ movie.score }}</span>
+                <img :src="movie.cover" :alt="movie.title" class="poster-img">
+                <span class="movie-score">{{ movie.score ||0 }}</span>
                 <el-button 
                   icon="el-icon-heart" 
                   size="mini"
@@ -106,7 +98,7 @@
               <div class="movie-card__info">
                 <h3 class="movie-title">{{ movie.title }}</h3>
                 <div class="movie-meta">
-                  <span class="movie-type">{{ movie.column.join(' / ') }}</span>
+                  <span class="movie-type">{{ movie.column.name }}</span>
                   <span class="movie-year">{{ movie.date }}</span>
                 </div>
                 <p class="movie-brief">{{ movie.brief }}</p>
@@ -141,22 +133,22 @@
             @click="goToDetail(movie.id)"
           >
             <div class="rank-num" :class="getRankClass(index)">{{ index + 1 }}</div>
-            <img :src="movie.poster" :alt="movie.title" class="rank-poster">
+            <img :src="movie.cover" :alt="movie.title" class="rank-poster">
             <div class="rank-info">
               <div class="rank-top">
                 <h3 class="rank-movie-title">{{ movie.title }}</h3>
-                <span class="rank-score">{{ movie.score }}</span>
+                <span class="rank-score">{{ movie.score||0 }}</span>
               </div>
               <div class="rank-meta">
-                <span class="rank-type">{{ movie.type.join(' / ') }}</span>
-                <span class="rank-year">{{ movie.year }}</span>
+                <span class="rank-type">{{ movie.column.name }}</span>
+                <span class="rank-year">{{ movie.date }}</span>
               </div>
               <!-- hover展开的详细信息 -->
               <div class="rank-detail" v-show="activeRankIndex === index">
-                <p class="rank-desc">{{ movie.brief }}</p>
+                <p class="rank-desc">{{ movie.brief||'hhh' }}</p>
                 <div class="rank-stat">
-                  <span><i class="el-icon-date"></i> {{ movie.updateTime }}</span>
-                  <span><i class="el-icon-eye"></i> {{ movie.viewCount }}次观看</span>
+                  <span><i class="el-icon-date"></i> {{ movie.date }}</span>
+                  <span><i class="el-icon-eye"></i> {{ movie.hit_num }}次观看</span>
                 </div>
               </div>
             </div>
@@ -449,9 +441,9 @@ export default {
   height 100%
   background-color: #1A1A1A
   color: #F5F5F5
-  padding: 20px 0
   box-sizing: border-box
   border: 1px solid #ccc
+
 
 /* 轮播图样式 */
 .carousel-container
@@ -476,7 +468,9 @@ export default {
   left: 0
   transition: transform 0.5s ease
   overflow: hidden
-
+.carousel-item:hover img
+  transform: scale(1.2)
+  transition: transform 0.5s ease
 .carousel-img
   width: 100%
   height: 100%

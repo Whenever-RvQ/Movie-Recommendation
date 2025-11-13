@@ -46,7 +46,7 @@
       <BaseWelcome />
     </div>
     <BaseModal />
-    <Live2D v-if="welcome" />
+    <Live2D v-if="!welcome" />
   </div>
 
 </template>
