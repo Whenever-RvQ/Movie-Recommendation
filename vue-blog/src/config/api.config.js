@@ -1,3 +1,5 @@
+import { url } from "stylus";
+
 export default {
   'register': {
     url: 'admin/register',
@@ -73,4 +75,11 @@ export default {
     url: '/api/rest/articles/:id',
     method: 'PUT'
   },
+
+  'movies':{
+    url: '/api/rest/movies',
+    method: 'GET'
+  },
+
+  
 }

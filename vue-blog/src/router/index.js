@@ -10,6 +10,7 @@ import Column from '../views/Column'
 import Editor from '../views/Editor'
 import BaseUser from '@/components/base/BaseUser'
 import Socket from '../views/Socket'
+import MovieIndex from '../views/MovieIndex'
 import Base404 from '@/components/base/Base404'
 
 
@@ -22,7 +23,7 @@ const routes = [
     redirect: '/index',
     component: Home,
     children: [
-      { path: '/index', name: 'index', component: ArticleList },
+      { path: '/index', name: 'index', component: MovieIndex },
       {
         path: '/column',
         component: Column,

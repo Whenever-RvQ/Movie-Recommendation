@@ -7,25 +7,25 @@
       <el-container class="blog-middle">
 
         <el-row class="blog-middle--wrap" type="flex" justify="flex-wrap" align="center">
-          <el-col :span="6" class="hidden-md-and-down">
+          <el-col :span="6" class="hidden-md-and-down" v-if="isUserRoute">
             <BaseAside v-if="$store.state.userInfo" />
           </el-col>
 
           <el-col :span="24" :lg="{ span: 24 }">
             <el-main class="blog-main">
-              <keep-alive include="ArticleList">
+              <keep-alive include="MovieIndex">
                 <router-view v-if="isRouteLoading" :loading="loading"></router-view>
               </keep-alive>
             </el-main>
           </el-col>
-          <el-col :span="1">
-            <CircleMenu type='bottom' :number='3' :colors="['#ebc08e', '#ebc08e', '#ebc08e', '#ebc08e', '#ebc08e']"
+          <el-col :span="1" v-if="!index">
+            <!-- <CircleMenu type='bottom' :number='3' :colors="['#ebc08e', '#ebc08e', '#ebc08e', '#ebc08e', '#ebc08e']"
               circle btn class="circle-menu" v-if="index">
               <router-link tag="i" slot="item_1" class="el-icon-edit" to="/editor"></router-link>
               <router-link tag="i" slot="item_2" class="el-icon-star-on" to="/like"></router-link>
               <i slot="item_3" class="el-icon-refresh-left" @click="refreshAll()"></i>
 
-            </CircleMenu>
+            </CircleMenu> -->
             <CircleMenu type='bottom' :number='3' :colors="['#ebc08e', '#ebc08e', '#ebc08e', '#ebc08e', '#ebc08e']"
               circle btn class="circle-menu" v-if="articletools">
               <router-link tag="i" slot="item_1" class="el-icon-edit" to="/editor"></router-link>
@@ -69,7 +69,7 @@ export default {
   data() {
     return {
       loading: false,
-      isRouteLoading: true
+      isRouteLoading: true,
     }
   },
 
@@ -94,6 +94,9 @@ export default {
     },
     userInfo() {
       return this.$store.state.userInfo
+    },
+    isUserRoute() {
+      return this.$route.path === '/user'
     }
   },
 
@@ -213,31 +216,58 @@ export default {
 }
 </script>
 <style lang="stylus">
-.blog-container
-  overflow hidden
-.blog-middle
-  padding 20px
-  height calc(100vh - 60px - 10vh)
-  background-color #f1f1f1
-.el-main.blog-main
-  padding 0 20px
-  height 100%
+.blog-container {
+  overflow: hidden;
+}
+
+.blog-middle {
+  height: calc(100vh - 60px - 10vh);
+  background-color: #1A1A1A;
+}
+
+.el-main.blog-main {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  
+  // Webkit浏览器滚动条样式
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: #2D2F33;
+    border-radius: 3px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 3px;
+  }
+  
+  &::-webkit-scrollbar-thumb:hover {
+    background: #d0a87d;
+  }
+}
 .blog-middle--wrap
   min-width: 1220px
-  width 100%
+  width: 100%
+
 .blog-footer
-  height 10vh
-  background-color #2D2F33
+  height: 10vh
+  background-color: #2D2F33
+
 .circle-menu
   margin-top: 1vh
   width: 55%
   scale: 0.8
+
 .circle-menu i
   color: white
   scale: 1.2
-  transform: transition( all 0.3s ease )
+  transform: transition(all 0.3s ease)
+
 .circle-menu i:hover
   scale: 1.5
-  transform: transition( all 0.3s ease )
-
+  transform: transition(all 0.3s ease)
 </style>

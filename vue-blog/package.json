@@ -15,6 +15,7 @@
     "font-awesome": "^4.7.0",
     "jsencrypt": "^3.0.0-rc.1",
     "loadsh": "^0.0.4",
+    "mkdirp": "^2.1.6",
     "nprogress": "^0.2.0",
     "qs": "^6.9.6",
     "socket.io-client": "^4.8.1",
@@ -26,6 +27,9 @@
     "vuescroll": "^4.17.3",
     "vuex": "^3.4.0",
     "wangeditor": "^4.7.15"
+  },
+  "overrides": {
+    "mkdirp": "2.1.6" 
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
@@ -41,11 +45,12 @@
     "postcss-pxtorem": "^6.1.0",
     "sass-loader": "^7.0.3",
     "stylus": "^0.54.8",
-    "stylus-loader": "^3.0.2",
+    "stylus-loader": "^4.3.3",
     "tailwindcss": "^4.1.17",
     "vue-cli-plugin-element": "~1.0.1",
     "vue-template-compiler": "^2.6.11",
-    "webpack-bundle-analyzer": "^4.10.2"
+    "webpack-bundle-analyzer": "^4.10.2",
+    "when": "^3.7.8"
   },
   "eslintConfig": {
     "root": true,
@@ -60,6 +65,7 @@
     },
     "rules": {}
   },
+
   "browserslist": [
     "> 1%",
     "last 2 versions",

@@ -60,7 +60,7 @@ async function pagination({ model, query, options, populate = {}, size, page, di
   // 使用处理后的查询条件
   let result = await mongoPage(model)
     .find(mongoQuery)
-    .sort({ '_id': -1 })
+    .sort({ '_id': 1 })
     .populate(populate)
     .select(options)
     .size(size)

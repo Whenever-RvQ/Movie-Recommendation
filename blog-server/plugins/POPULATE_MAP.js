@@ -17,6 +17,20 @@ module.exports = {
             }
         }
     ],
+    "Movie": [
+        {
+            "path": "column",
+            "select": "name date"
+        },
+        {
+            "path": "comments",
+            "select": "content date uid",
+            "populate": {
+                "path": "uid",
+                "select": "nikname avator username"
+            }
+        }
+    ],
     "Comment": [
         {
             "path": "uid",
@@ -24,7 +38,7 @@ module.exports = {
         }
     ],
     "User": [
-        
+
     ],
-    
+
 }

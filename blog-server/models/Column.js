@@ -19,7 +19,7 @@ const schema = new mongoose.Schema({
   //文章 ids
   aids: [{
     type: mongoose.SchemaTypes.ObjectId,
-    ref: "Article"
+    ref: "Movie"
   }],
   
 })

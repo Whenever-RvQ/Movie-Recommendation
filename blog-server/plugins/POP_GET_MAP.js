@@ -1,4 +1,4 @@
-module.exports={
+module.exports = {
     // Comment:{
     //     "_refId":"aid",
     //     "content":"content",
@@ -16,14 +16,24 @@ module.exports={
     //     }
 
     // },
-    Article:{
-        "queryAct":"findByIdAndUpdate",
-        "options":function(_id){
-           return {
-               "$inc":{
-                   "hit_num":1
-               }
-           }
+    Article: {
+        "queryAct": "findByIdAndUpdate",
+        "options": function (_id) {
+            return {
+                "$inc": {
+                    "hit_num": 1
+                }
+            }
+        }
+    },
+    Movie: {
+        "queryAct": "findByIdAndUpdate",
+        "options": function (_id) {
+            return {
+                "$inc": {
+                    "hit_num": 1
+                }
+            }
         }
     },
     //访客量

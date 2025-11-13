@@ -4,6 +4,7 @@ const User = require('../models/User')
 const Article = require('../models/Article')
 const Column = require('../models/Column')
 const Comment = require('../models/Comment')
+const Movie = require('../models/Movie')
 
 const createError = require('http-errors')
 const assert = require('http-assert')
@@ -107,6 +108,7 @@ router.delete('/:id', async (req, res) => {
 //查询资源列表
 router.get('/', async (req, res, next) => {
   let modelName = req.Model.modelName
+  console.log(modelName)
   let { options = {}, page = 1, size = 100, query = '', populate = '', dis = 8 } = req.query
   // 注意这里使用 req.query 而不是 req
 

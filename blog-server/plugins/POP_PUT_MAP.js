@@ -1,10 +1,14 @@
 module.exports = {
     "Article": {
-        "revisable": ["title", "cover", "content","like_num"],
+        "revisable": ["title", "cover", "body", "like_num"],
         "authField": "author"
     },
+    "Movie": {
+        "revisable": ["title", "cover", "body", "like_num","director"],
+        "authField": "_id"
+    },
     "User": {
-        "revisable": ["avator","password", "email", "nikname","signature"],
+        "revisable": ["avator", "password", "email", "nikname", "signature"],
         "authField": "_id"
     },
     "Comment": {
