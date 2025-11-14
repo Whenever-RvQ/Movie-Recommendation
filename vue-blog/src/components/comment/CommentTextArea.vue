@@ -10,7 +10,7 @@
 <script>
 export default {
   name: 'CommentTextArea',
-  inject: ['getArticleById'],
+  inject: ['getMovieById'],
   props: {
     aid: {
       type: String
@@ -42,7 +42,7 @@ export default {
           title: '评论成功',
         })
         //inject 调用父组件的 getArticleById方法
-        this.getArticleById()
+        this.getMovieById()
       } catch (err) {
         this.$notify.error({
           title: '评论失败',

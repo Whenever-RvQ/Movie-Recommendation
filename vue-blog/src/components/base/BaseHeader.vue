@@ -73,7 +73,7 @@ export default {
         const menuRoutes = [
         { pattern: /^\/index$/, index: '/index' },
         { pattern: /^\/column(?:\/.*)?$/, index: '/column' },
-        { pattern: /^\/album(?:\/.*)?$/, index: '/album' },
+        { pattern: /^\/editor(?:\/.*)?$/, index: '/editor' },
         { pattern: /^\/case(?:\/.*)?$/, index: '/case' },
         { pattern: /^\/socket$/, index: '/socket' },
       ];

@@ -29,7 +29,7 @@
             <CircleMenu type='bottom' :number='3' :colors="['#ebc08e', '#ebc08e', '#ebc08e', '#ebc08e', '#ebc08e']"
               circle btn class="circle-menu" v-if="articletools">
               <router-link tag="i" slot="item_1" class="el-icon-edit" to="/editor"></router-link>
-              <i slot="item_2" class="el-icon-star-on" @click="incArticleLikeNum"></i>
+              <i slot="item_2" class="el-icon-star-on" @click="incMovieLikeNum"></i>
               <router-link tag="i" slot="item_3" class="el-icon-download" to="/download"></router-link>
             </CircleMenu>
             <CircleMenu type='bottom' :number='2' :colors="['#ebc08e', '#ebc08e', '#ebc08e', '#ebc08e', '#ebc08e']"
@@ -40,7 +40,7 @@
           </el-col>
         </el-row>
       </el-container>
-      <el-footer class="blog-footer">底部</el-footer>
+      <!-- <el-footer class="blog-footer" v-if="isFoot">底部</el-footer> -->
     </el-container>
     <div v-else class="blog-welcome">
       <BaseWelcome />
@@ -97,6 +97,9 @@ export default {
     },
     isUserRoute() {
       return this.$route.path === '/user'
+    },
+    isFoot() {
+      return false
     }
   },
 
@@ -143,37 +146,37 @@ export default {
     addColumn() {
       this.refreshModal('postColumn')
     },
-    async incArticleLikeNum() {
+    async incMovieLikeNum() {
       // 获取当前文章的点赞数，确保是数字类型
       let currentLikeNum = 0;
 
       // 从当前路由参数获取文章ID
-      const articleId = this.$route.params.id;
+      const movieId = this.$route.params.id;
 
-      if (!articleId) {
+      if (!movieId) {
         this.$notify.error({
-          message: '无法获取文章信息'
+          message: '无法获取电影信息'
         });
         return;
       }
 
       try {
         // 首先获取文章当前的点赞数
-        const articleRes = await this.$api({
-          type: 'getArticleById',
-          data: { id: articleId }
+        const movieRes = await this.$api({
+          type: 'getMoiveById',
+          data: { id: movieId }
         });
 
-        currentLikeNum = parseInt(articleRes.like_num) || 0;
+        currentLikeNum = parseInt(movieRes.like_num) || 0;
 
         // 增加点赞数
         const res = await this.$api({
-          type: 'putArticleLikeNum',
+          type: 'putMovieLikeNum',
           data: {
             like_num: currentLikeNum + 1  // 确保是数字
           },
           params: {
-            id: articleId
+            id: movieId
           }
         });
 
@@ -188,8 +191,8 @@ export default {
           });
 
           // 通知其他组件更新数据
-          this.$EventBus.$emit('article-like-updated', {
-            id: articleId,
+          this.$EventBus.$emit('Movie-like-updated', {
+            id: movieId,
             like_num: newLikeNum
           });
         }
@@ -221,7 +224,7 @@ export default {
 }
 
 .blog-middle {
-  height: calc(100vh - 60px - 10vh);
+  height: calc(100vh - 60px);
   background-color: #1A1A1A;
 }
 

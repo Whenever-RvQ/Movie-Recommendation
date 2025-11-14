@@ -3,30 +3,20 @@
     <!-- 轮播图模块 -->
     <div class="carousel-container" ref="carousel">
       <div class="carousel-wrapper">
-        <div 
-          class="carousel-item"
-          v-for="(item, index) in carouselMovies"
-          :key="index"
-          :style="{ transform: `translateX(${(currentIndex - index) * 100}%)` }"
-          @mouseenter="showTrailer = index"
-          @mouseleave="showTrailer = -1"
-        >
+        <div class="carousel-item" v-for="(item, index) in carouselMovies" :key="index"
+          :style="{ transform: `translateX(${(currentIndex - index) * 100}%)` }" @mouseenter="showTrailer = index"
+          @mouseleave="showTrailer = -1">
           <img :src="item.cover" :alt="item.title" class="carousel-img">
           <div class="carousel-mask"></div>
           <div class="carousel-info">
             <div class="carousel-tags">
               <span class="tag hot" v-if="item.isHot">热映中</span>
-              <span class="tag score">{{ item.score||0 }}</span>
-              <span class="tag date">{{ item.releaseDate }}</span>
+              <span class="tag date">{{ item.hit_num }}</span>
+              <span class="tag score">{{ item.score || 0 }}</span>
             </div>
             <h2 class="carousel-title">{{ item.title }}</h2>
             <p class="carousel-desc">{{ item.body }}</p>
-            <el-button 
-              type="primary" 
-              size="medium"
-              @click="goToDetail(item.id)"
-              class="detail-btn"
-            >
+            <el-button type="primary" size="medium" @click="goToDetail(item.id)" class="detail-btn">
               <i class="el-icon-play"></i> 查看详情
             </el-button>
           </div>
@@ -41,13 +31,8 @@
       </button>
       <!-- 轮播指示器 -->
       <div class="carousel-indicators">
-        <span 
-          class="indicator-dot"
-          v-for="(item, index) in carouselMovies"
-          :key="index"
-          :class="{ active: currentIndex === index }"
-          @click="goToSlide(index)"
-        ></span>
+        <span class="indicator-dot" v-for="(item, index) in carouselMovies" :key="index"
+          :class="{ active: currentIndex === index }" @click="goToSlide(index)"></span>
       </div>
     </div>
 
@@ -58,51 +43,35 @@
         <div class="section-header">
           <h2 class="section-title">为你推荐</h2>
           <div class="section-operate">
-            <el-select 
-              v-model="sortType" 
-              placeholder="排序方式" 
-              size="mini"
-              @change="handleSortChange"
-            >
+            <el-select v-model="sortType" placeholder="排序方式" size="mini" @change="handleSortChange">
               <el-option label="热度优先" value="hot"></el-option>
               <el-option label="评分优先" value="score"></el-option>
               <el-option label="最新上映" value="latest"></el-option>
             </el-select>
-            <el-button 
-              icon="el-icon-refresh" 
-              size="mini"
-              @click="refreshRecommend"
-              class="refresh-btn"
-            ></el-button>
+            <el-button icon="el-icon-refresh" size="mini" @click="refreshRecommend" class="refresh-btn"></el-button>
           </div>
         </div>
 
-        <div @handle-scroll="loadMore" >
+        <div @handle-scroll="loadMore">
           <div class="movie-grid">
-            <el-card 
-              class="movie-card" 
-              v-for="(movie) in recommendMovies"
-              :key="movie.id"
-              @click="goToDetail(movie.id)"
-            >
-              <div class="movie-card__poster">
-                <img :src="movie.cover" :alt="movie.title" class="poster-img">
-                <span class="movie-score">{{ movie.score ||0 }}</span>
-                <el-button 
-                  icon="el-icon-star-off" 
-                  size="mini"
-                  class="collect-btn"
-                  @click.stop="handleCollect(movie.id)"
-                ></el-button>
-              </div>
-              <div class="movie-card__info">
-                <h3 class="movie-title">{{ movie.title }}</h3>
-                <div class="movie-meta">
-                  <span class="movie-type">{{ movie.column.name }}</span>
-                  <span class="movie-year">{{ movie.date }}</span>
+            <el-card class="movie-card" v-for="(movie) in recommendMovies" :key="movie.id"
+              @click="goToDetail(movie.id)">
+              <router-link :to="{ name: 'movie', params: { id: movie._id } }">
+                <div class="movie-card__poster">
+                  <img :src="movie.cover" :alt="movie.title" class="poster-img">
+                  <span class="movie-score">{{ movie.score || 0 }}</span>
+                  <el-button icon="el-icon-star-off" size="mini" class="collect-btn"
+                    @click.stop="handleCollect(movie.id)"></el-button>
                 </div>
-                <p class="movie-brief">{{ movie.brief }}</p>
-              </div>
+                <div class="movie-card__info">
+                  <h3 class="movie-title">{{ movie.title }}</h3>
+                  <div class="movie-meta">
+                    <span class="movie-type">{{ movie.column.name }}</span>
+                    <span class="movie-year">{{ movie.date }}</span>
+                  </div>
+                  <p class="movie-brief">{{ movie.brief }}</p>
+                </div>
+              </router-link>
             </el-card>
           </div>
         </div>
@@ -124,20 +93,14 @@
           <span class="update-tag">实时更新</span>
         </div>
         <div class="rank-list">
-          <div 
-            class="rank-item"
-            v-for="(movie, index) in rankMovies"
-            :key="movie.id"
-            @mouseenter="activeRankIndex = index"
-            @mouseleave="activeRankIndex = -1"
-            @click="goToDetail(movie.id)"
-          >
+          <div class="rank-item" v-for="(movie, index) in rankMovies" :key="movie.id"
+            @mouseenter="activeRankIndex = index" @mouseleave="activeRankIndex = -1" @click="goToDetail(movie.id)">
             <div class="rank-num" :class="getRankClass(index)">{{ index + 1 }}</div>
             <img :src="movie.cover" :alt="movie.title" class="rank-poster">
             <div class="rank-info">
               <div class="rank-top">
                 <h3 class="rank-movie-title">{{ movie.title }}</h3>
-                <span class="rank-score">{{ movie.score||0 }}</span>
+                <span class="rank-score">{{ movie.score || 0 }}</span>
               </div>
               <div class="rank-meta">
                 <span class="rank-type">{{ movie.column.name }}</span>
@@ -145,7 +108,7 @@
               </div>
               <!-- hover展开的详细信息 -->
               <div class="rank-detail" v-show="activeRankIndex === index">
-                <p class="rank-desc">{{ movie.brief||'hhh' }}</p>
+                <p class="rank-desc">{{ movie.brief || 'hhh' }}</p>
                 <div class="rank-stat">
                   <span><i class="el-icon-date"></i> {{ movie.date }}</span>
                   <span><i class="el-icon-eye"></i> {{ movie.hit_num }}次观看</span>
@@ -154,11 +117,7 @@
             </div>
           </div>
         </div>
-        <el-button 
-          type="text" 
-          class="see-all-rank"
-          @click="goToRankList"
-        >
+        <el-button type="text" class="see-all-rank" @click="goToRankList">
           查看完整榜单 <i class="el-icon-arrow-right"></i>
         </el-button>
       </div>
@@ -357,7 +316,7 @@ export default {
 
     // 跳转相关
     goToDetail(id) {
-      this.$router.push({ name: 'movieDetail', params: { id } });
+      this.$router.push({ name: 'movie', params: { id:id } });
     },
     goToRankList() {
       this.$router.push({ name: 'movieRank' });
@@ -412,7 +371,7 @@ export default {
       // 实际项目中替换为真实接口
       this.$api({
         type: 'movies',
-        data: { size: 8}
+        data: { size: 8 }
       }).then(res => {
         this.rankMovies = res.list || [];
       }).catch(err => {
@@ -443,6 +402,8 @@ export default {
   background-color: #1A1A1A
   color: #F5F5F5
   box-sizing: border-box
+  max-width: 1200px
+  margin: 0 auto 
 
 
 /* 轮播图样式 */
@@ -453,6 +414,7 @@ export default {
   border-radius: 8px
   margin: 0 auto 40px
   max-width: 1200px
+  overflow: hidden
 
 .carousel-wrapper
   width: 100%

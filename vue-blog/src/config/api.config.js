@@ -54,9 +54,18 @@ export default {
     url: '/api/rest/articles',
     method: 'POST'
   },
+  'postMovie': {
+    url: '/api/rest/movies',
+    method: 'POST'
+  },
   'getArticleById': {
     rest: true,
     url: '/api/rest/articles/:id',
+    method: 'GET'
+  },
+  'getMovieById': {
+    rest: true,
+    url: '/api/rest/movies/:id',
     method: 'GET'
   },
   'uploadArticle': {
@@ -75,7 +84,10 @@ export default {
     url: '/api/rest/articles/:id',
     method: 'PUT'
   },
-
+    'putMovieLikeNum': {
+    url: '/api/rest/movies/:id',
+    method: 'PUT'
+  },
   'movies':{
     url: '/api/rest/movies',
     method: 'GET'

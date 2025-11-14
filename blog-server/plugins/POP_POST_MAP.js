@@ -7,7 +7,7 @@ module.exports = {
     Comment: [{
         "_refId": "aid",
         "content": "content",
-        "_model": Article,
+        "_model": Movie,
         "queryAct": "findByIdAndUpdate",
         "options": function (_id) {
             return {

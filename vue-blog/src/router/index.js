@@ -6,6 +6,7 @@ import 'nprogress/nprogress.css'
 import Home from '../views/Home.vue'
 import Article from '../views/Article'
 import ArticleList from '../views/ArticleList'
+import Movie from '../views/Movie'
 import Column from '../views/Column'
 import Editor from '../views/Editor'
 import BaseUser from '@/components/base/BaseUser'
@@ -32,6 +33,7 @@ const routes = [
         }
       },
       { path: '/article/:id', component: Article, name: 'article' },
+      { path: '/movie/:id', component: Movie, name: 'movie' },
       {
         path: '/editor',
         name: 'editor',
