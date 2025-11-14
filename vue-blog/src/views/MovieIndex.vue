@@ -1,5 +1,5 @@
 <template>
-  <div class="movie-home-wrap" v-if="!show404">
+  <Scroll class="movie-home-wrap" v-if="!show404" ref="scrollView">
     <!-- 轮播图模块 -->
     <div class="carousel-container" ref="carousel">
       <div class="carousel-wrapper">
@@ -77,7 +77,7 @@
           </div>
         </div>
 
-        <div @handle-scroll="loadMore" ref="scrollView">
+        <div @handle-scroll="loadMore" >
           <div class="movie-grid">
             <el-card 
               class="movie-card" 
@@ -89,7 +89,7 @@
                 <img :src="movie.cover" :alt="movie.title" class="poster-img">
                 <span class="movie-score">{{ movie.score ||0 }}</span>
                 <el-button 
-                  icon="el-icon-heart" 
+                  icon="el-icon-star-off" 
                   size="mini"
                   class="collect-btn"
                   @click.stop="handleCollect(movie.id)"
@@ -163,7 +163,7 @@
         </el-button>
       </div>
     </div>
-  </div>
+  </Scroll>
   <Base404 v-else />
 </template>
 
@@ -387,7 +387,7 @@ export default {
 
       this.$api({
         type: 'movies',
-        data: { size: 3 }
+        data: { size: 6 }
       }).then(res => {
         const { list, total } = res;
 
@@ -439,18 +439,17 @@ export default {
 .movie-home-wrap
   width: 100%
   height 100%
+  overflow:hidden
   background-color: #1A1A1A
   color: #F5F5F5
   box-sizing: border-box
-  border: 1px solid #ccc
 
 
 /* 轮播图样式 */
 .carousel-container
   width: 100%
-  height: 500px
+  height: 450px
   position: relative
-  overflow: hidden
   border-radius: 8px
   margin: 0 auto 40px
   max-width: 1200px
@@ -468,6 +467,7 @@ export default {
   left: 0
   transition: transform 0.5s ease
   overflow: hidden
+  border: 1px solid rgba(255,255,255,0.2)
 .carousel-item:hover img
   transform: scale(1.2)
   transition: transform 0.5s ease
@@ -639,7 +639,6 @@ export default {
   border-radius: 8px
   padding: 24px
   height: calc(100vh - 600px)
-  overflow: hidden
 
 .section-header
   display: flex
@@ -689,7 +688,7 @@ export default {
 
 .movie-card__poster
   position: relative
-  height: 330px
+  height: 250px
   overflow: hidden
 
 .poster-img
@@ -726,8 +725,7 @@ export default {
   opacity: 0
   transition: all 0.3s ease
   &:hover
-    background-color: #E50914
-    color: #fff
+    background: transparent
 
 .movie-card:hover .collect-btn
   opacity: 1

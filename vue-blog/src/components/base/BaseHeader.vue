@@ -10,7 +10,7 @@
         active-text-color="#fff" :default-active=activeIndex router>
         <el-menu-item index="/index">首页</el-menu-item>
         <el-menu-item index="/column">分类</el-menu-item>
-        <el-menu-item index="/album">相册</el-menu-item>
+        <el-menu-item index="/editor">录片</el-menu-item>
         <el-menu-item index="/socket">聊天</el-menu-item>
         <el-menu-item index="/case">案例</el-menu-item>
       </el-menu>

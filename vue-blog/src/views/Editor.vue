@@ -1,8 +1,8 @@
 <template>
   <el-card class="blog-editor">
-    <h3 class="blog-editor-title">标题</h3>
-    <el-input ref="title" v-model="title" class="blog-editor-input" size="medium" placeholder="文章标题"></el-input>
-    <h3 class="blog-editor-title">内容</h3>
+    <h3 class="blog-editor-title">电影名</h3>
+    <el-input ref="title" v-model="title" class="blog-editor-input" size="medium" placeholder="请输入电影名"></el-input>
+    <h3 class="blog-editor-title">电影简介</h3>
     <div id="blog-editor-textarea">
 
     </div>

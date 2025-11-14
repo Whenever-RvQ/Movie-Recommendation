@@ -28,6 +28,10 @@ const schema = new mongoose.Schema({
     type: Number,
     default: 2025
   },
+  score:{
+    type: Number,
+    default: 0.0
+  },
   //点击量
   hit_num: {
     type: Number,

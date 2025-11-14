@@ -18,7 +18,7 @@
               </keep-alive>
             </el-main>
           </el-col>
-          <el-col :span="1" v-if="!index">
+          <el-col :span="1" v-if="menu">
             <!-- <CircleMenu type='bottom' :number='3' :colors="['#ebc08e', '#ebc08e', '#ebc08e', '#ebc08e', '#ebc08e']"
               circle btn class="circle-menu" v-if="index">
               <router-link tag="i" slot="item_1" class="el-icon-edit" to="/editor"></router-link>
@@ -40,7 +40,7 @@
           </el-col>
         </el-row>
       </el-container>
-      <el-footer height="10vh" class="blog-footer">底部</el-footer>
+      <el-footer class="blog-footer">底部</el-footer>
     </el-container>
     <div v-else class="blog-welcome">
       <BaseWelcome />
