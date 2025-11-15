@@ -1,5 +1,6 @@
 <template>
   <div class="blog-chat">
+    
     <div class="blog-chat--header">
       <i class="el-icon-comments"></i>
       <span>实时聊天室</span>
@@ -183,7 +184,7 @@ export default {
 
 <style lang="stylus" scoped>
 // 全局样式变量
-$primary-color = #409EFF
+$primary-color =  #E50914
 $secondary-color = #67C23A
 $gray-light = #F5F7FA
 $gray = #C0C4CC
@@ -197,12 +198,12 @@ $shadow = 0 2px 12px rgba(0, 0, 0, 0.08)
   display flex
   flex-direction column
   width 100%
-  max-width 800px  // 限制最大宽度
+  max-width 850px  // 限制最大宽度
   margin 10px auto
   background-color #fff
   border-radius 12px
   box-shadow 0 4px 20px rgba(0, 0, 0, 0.1)
-  height 68vh
+  height 80vh
   overflow hidden
   transition all 0.3s ease
 
@@ -210,6 +211,7 @@ $shadow = 0 2px 12px rgba(0, 0, 0, 0.08)
   @media (max-width: 768px)
     width 95%
     height 75vh
+
 
 .blog-chat--header
   display flex
@@ -223,6 +225,41 @@ $shadow = 0 2px 12px rgba(0, 0, 0, 0.08)
   i.el-icon-comments
     margin-right 8px
     font-size 20px
+
+.movie-editor-wrap
+  display: flex
+  align-items: stretch
+  width: 100%
+  min-height: 100vh
+  background-color: #1A1A1A // 最外层深色背景，突出胶卷边框
+  padding: 20px 0
+
+// 胶卷边框样式（核心新增）
+.film-border
+  width: 60px
+  background-color: #0F0F0F
+  background-image: 
+    radial-gradient(circle, #333 10px, transparent 12px),
+    radial-gradient(circle, #333 10px, transparent 12px)
+  background-size: 40px 60px
+  background-position: 0 0, 20px 30px
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.5)
+  // 胶卷齿孔动画（缓慢滚动，增强质感）
+  animation: filmRoll 20s linear infinite
+
+// 左右边框对称
+.left-film
+  border-right: 2px solid #444
+
+.right-film
+  border-left: 2px solid #444
+
+// 胶卷滚动动画
+@keyframes filmRoll
+  0%
+    background-position: 0 0, 20px 30px
+  100%
+    background-position: 0 60px, 20px 90px
 
 .blog-chat--content
   flex 1
@@ -372,7 +409,7 @@ $shadow = 0 2px 12px rgba(0, 0, 0, 0.08)
   gap: 12px
   padding: 16px 20px
   background-color #fff
-  border-top: 1px solid #F0F2F5
+  border-top: 1px solid #E50914
   align-items: center  // 输入框和按钮垂直居中
 
 .chat-input
@@ -389,9 +426,11 @@ $shadow = 0 2px 12px rgba(0, 0, 0, 0.08)
   height: 40px !important
   font-size: 14px !important
   transition all 0.2s ease
+  background-color:#E50914 !important
+  border: 1px solid #ECECEC !important
 
   &:hover
-    background-color: #3391FF !important
+    background-color: #E50914 !important
     transform: translateY(-1px)
 
   &:active

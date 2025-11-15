@@ -64,6 +64,10 @@ const schema = new mongoose.Schema({
     type: mongoose.SchemaTypes.ObjectId,
     required: true,
     ref: 'Column',
+  },
+  isCollected:{
+    type: Boolean,
+    default: false
   }
 })
 

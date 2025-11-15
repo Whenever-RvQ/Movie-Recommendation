@@ -12,7 +12,7 @@
         <el-menu-item index="/column">分类</el-menu-item>
         <el-menu-item index="/editor">录片</el-menu-item>
         <el-menu-item index="/socket">聊天</el-menu-item>
-        <el-menu-item index="/case">案例</el-menu-item>
+        <el-menu-item index="/diy">个性化</el-menu-item>
       </el-menu>
     </el-col>
     <el-col class="blog-search" :span="8" :offset="3">
@@ -55,7 +55,7 @@ export default {
     },
     ...mapGetters(['userInfo'])
   },
-   watch: {
+  watch: {
     // 监听路由变化
     $route() {
       this.updateActiveIndex();
@@ -71,12 +71,13 @@ export default {
       } else {
         // 匹配菜单项
         const menuRoutes = [
-        { pattern: /^\/index$/, index: '/index' },
-        { pattern: /^\/column(?:\/.*)?$/, index: '/column' },
-        { pattern: /^\/editor(?:\/.*)?$/, index: '/editor' },
-        { pattern: /^\/case(?:\/.*)?$/, index: '/case' },
-        { pattern: /^\/socket$/, index: '/socket' },
-      ];
+          { pattern: /^\/index$/, index: '/index' },
+          { pattern: /^\/column(?:\/.*)?$/, index: '/column' },
+          { pattern: /^\/editor(?:\/.*)?$/, index: '/editor' },
+
+          { pattern: /^\/socket$/, index: '/socket' },
+          { pattern: /^\/diy(?:\/.*)?$/, index: '/diy' },
+        ];
         const matchedRoute = menuRoutes.find(route => route.pattern.test(path));
         this.activeIndex = matchedRoute ? matchedRoute.index : '/index';
         console.log(this.activeIndex)
@@ -85,7 +86,8 @@ export default {
     activeSearch() {
       if (this.searchVal) {
         this.$EventBus.$emit('activeSearch', this.searchVal)
-        this.searchVal=''
+        this.$router.push({ path: '/search', query: { q: this.searchVal } })
+        this.searchVal = ''
       }
     }
   }

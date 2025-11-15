@@ -1,6 +1,7 @@
 <template>
   <div class="blog-page">
     <el-container class="blog-container" v-if="welcome">
+      
       <el-header class="blog-header">
         <BaseHeader />
       </el-header>

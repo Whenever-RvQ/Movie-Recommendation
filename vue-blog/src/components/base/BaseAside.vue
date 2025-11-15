@@ -1,5 +1,5 @@
 <template>
-  <el-aside width="100%">
+  <el-aside width="80%">
     <el-card class="box-card blog-aside">
       <div class="blog-avatar">
         <img class="blog-avatar--pic"
@@ -12,13 +12,13 @@
           <div class="blog-state--item blog-line--col">
             <a href="#">
               <span class="blog-state--count">{{userInfo.articleCount}}</span>
-              <span class="blog-state--name">文章</span>
+              <span class="blog-state--name">评价</span>
             </a>
           </div>
           <div class="blog-state--item">
             <a href="#">
               <span class="blog-state--count">{{userInfo.columnCount}}</span>
-              <span class="blog-state--name">分类</span>
+              <span class="blog-state--name">收藏</span>
             </a>
           </div>
         </div>
@@ -60,7 +60,12 @@ export default {
 <style lang="stylus" >
 @import '~assets/css/base.styl'
 .blog-aside
-  width 100%
+  position:fixed
+  top padding-space * 8 
+  width 21vw
+  padding: 20px 0
+  margin-top 20px
+  background-color: #f5f4f3
   max-width 280px
   text-align center
 .blog-slide-wrap

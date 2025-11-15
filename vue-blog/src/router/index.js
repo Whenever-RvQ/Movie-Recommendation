@@ -13,6 +13,8 @@ import BaseUser from '@/components/base/BaseUser'
 import Socket from '../views/Socket'
 import MovieIndex from '../views/MovieIndex'
 import Base404 from '@/components/base/Base404'
+import MovieList from '../views/MovieList'
+import MovieDIY from '../views/MovieDIY'
 
 
 Vue.use(VueRouter)
@@ -28,12 +30,15 @@ const routes = [
       {
         path: '/column',
         component: Column,
+        name  : 'column',
         meta: {
           requiresAuth: true
         }
       },
       { path: '/article/:id', component: Article, name: 'article' },
       { path: '/movie/:id', component: Movie, name: 'movie' },
+      { path: '/search', component: MovieList, name: 'search' },
+      { path: '/diy', component: MovieDIY, name: 'diy' },
       {
         path: '/editor',
         name: 'editor',

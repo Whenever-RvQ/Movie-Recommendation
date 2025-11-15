@@ -4,7 +4,7 @@ module.exports = {
         "authField": "author"
     },
     "Movie": {
-        "revisable": ["title", "cover", "body", "like_num","director"],
+        "revisable": ["title", "cover", "body", "like_num","director","score","isCollected"],
         "authField": "_id"
     },
     "User": {
@@ -18,5 +18,6 @@ module.exports = {
     "Column": {
         "revisable": ["aids"],
         "authField": "name"
-    }
+    },
+
 }

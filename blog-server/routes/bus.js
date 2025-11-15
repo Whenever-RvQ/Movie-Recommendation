@@ -78,8 +78,6 @@ router.put('/:id', async (req, res, next) => {
     updateData = Object.fromEntries(Object.entries(putData).filter(([key, value]) => {
       return revisable.includes(key)
     }))
-
-    updateData['date'] = new Date().toISOString()
     console.log(updateData)
     result = await req.Model.findByIdAndUpdate(req.params.id, updateData, { new: true, runValidators: true })
     console.log(result,'123')

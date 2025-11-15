@@ -19,6 +19,10 @@ export default {
     url: '/api/rest/users/:id',
     method: 'PUT',
   },
+  'putMovieInfo': {
+    url: '/api/rest/movies/:id',
+    method: 'PUT',
+  },
   'index': {
     url: '/index',
     method: 'GET',

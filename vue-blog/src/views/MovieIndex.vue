@@ -61,7 +61,7 @@
                   <img :src="movie.cover" :alt="movie.title" class="poster-img">
                   <span class="movie-score">{{ movie.score || 0 }}</span>
                   <el-button icon="el-icon-star-off" size="mini" class="collect-btn"
-                    @click.stop="handleCollect(movie.id)"></el-button>
+                    @click.stop.prevent="handleCollect(movie._id)"></el-button>
                 </div>
                 <div class="movie-card__info">
                   <h3 class="movie-title">{{ movie.title }}</h3>
@@ -97,7 +97,7 @@
             @mouseenter="activeRankIndex = index" @mouseleave="activeRankIndex = -1" @click="goToDetail(movie.id)">
             <div class="rank-num" :class="getRankClass(index)">{{ index + 1 }}</div>
             <img :src="movie.cover" :alt="movie.title" class="rank-poster">
-            <div class="rank-info">
+            <router-link class="rank-info" :to="{ name: 'movie', params: { id: movie._id } }">
               <div class="rank-top">
                 <h3 class="rank-movie-title">{{ movie.title }}</h3>
                 <span class="rank-score">{{ movie.score || 0 }}</span>
@@ -108,13 +108,13 @@
               </div>
               <!-- hover展开的详细信息 -->
               <div class="rank-detail" v-show="activeRankIndex === index">
-                <p class="rank-desc">{{ movie.brief || 'hhh' }}</p>
+                <p class="rank-desc">{{ movie.body }}</p>
                 <div class="rank-stat">
                   <span><i class="el-icon-date"></i> {{ movie.date }}</span>
                   <span><i class="el-icon-eye"></i> {{ movie.hit_num }}次观看</span>
                 </div>
               </div>
-            </div>
+            </router-link>
           </div>
         </div>
         <el-button type="text" class="see-all-rank" @click="goToRankList">
@@ -220,6 +220,11 @@ export default {
     // 初始化轮播
     this.startCarousel();
   },
+  computed: {
+    isCollected(movie) {
+      return movie.isCollected;
+    }
+  },
   beforeDestroy() {
     this.stopCarousel();
     this.$EventBus.$off('activeSearch');
@@ -231,7 +236,14 @@ export default {
       this.getRecommendMovies();
       this.getRankMovies();
     },
-
+    reload() {
+      this.$nextTick(() => {
+        this.isRouteLoading = true
+        this.getCarouselMovies();
+        this.getRecommendMovies();
+        this.getRankMovies();
+      });
+    },
     // 处理路由变化
     handleRouteChange() {
       const newColumn = this.$route.query?.columnId || '';
@@ -316,7 +328,7 @@ export default {
 
     // 跳转相关
     goToDetail(id) {
-      this.$router.push({ name: 'movie', params: { id:id } });
+      this.$router.push({ name: 'movie', params: { id: id } });
     },
     goToRankList() {
       this.$router.push({ name: 'movieRank' });
@@ -388,7 +400,20 @@ export default {
     // 收藏功能（示例）
     handleCollect(id) {
       // 实际项目中添加收藏接口逻辑
-      this.$notify.success({ title: '操作成功', message: '已加入收藏' });
+      this.$api({
+        type: 'putMovieInfo',
+        data: { isCollected: true },
+        params: {
+          id: id
+        }
+      }).then(res => {
+        this.$notify.success({ title: '操作成功', message: '已加入收藏' });
+
+        this.reload();
+        console.log(res);
+      }).catch(err => {
+        this.$notify.error({ title: '收藏失败', message: err.message });
+      });
     }
   }
 };
@@ -600,15 +625,19 @@ export default {
   background-color: #0F0F0F
   border-radius: 8px
   padding: 24px
+  height: 100%
   height: calc(100vh - 600px)
 
 .section-header
   display: flex
   justify-content: space-between
+  height: 100%
   align-items: center
   margin-bottom: 24px
 
 .section-title
+  position: relative
+  top:1.5vh
   font-size: 24px
   font-weight: bold
   color: #fff

@@ -1,122 +1,129 @@
 <template>
     <Scroll>
-            <div class="film-strip">
-                <!-- 电影详情主体 -->
-                <div class="movie-detail">
-                    <!-- 头部信息：海报+基本信息 -->
-                    <div class="detail-header">
-                        <div class="poster-area">
-                            <img :src="movie.cover" alt="沙丘2" class="movie-poster">
-                            <div class="poster-actions">
-                                <button class="watch-btn">
-                                    <i class="fas fa-star"></i> 收藏
-                                </button>
-
-                            </div>
-                        </div>
-
-                        <div class="info-area">
-                            <h1 class="movie-title">{{ movie.title }}</h1>
-                            <div class="movie-meta">
-                                <span class="meta-item score">{{ movie.score }} <i class="fas fa-star"></i></span>
-                                <span class="meta-item type">{{ movie.column.name }}</span>
-                                <span class="meta-item year">{{ movie.date }}</span>
-                                <span class="meta-item duration">166 分钟</span>
-                                <span class="meta-item director">导演：{{ movie.director }}</span>
-                            </div>
-                            <div class="movie-tags">
-                                <span class="movie-tag">热映</span>
-                                <span class="movie-tag">奥斯卡</span>
-                                <span class="movie-tag">票房冠军</span>
-                                <span class="movie-tag">IMDb Top 250</span>
-                            </div>
-                            <div class="movie-desc">
-                                保罗·厄崔迪与查尼·弗雷曼联手，带领弗雷曼人展开反抗，誓要向哈克南家族复仇。在沙漠星球阿拉基斯的残酷环境中，他们将利用神秘的香料和弗雷曼人的战斗技巧，掀起一场改变宇宙格局的战争。
-                            </div>
+        <div class="film-strip">
+            <!-- 电影详情主体 -->
+            <div class="movie-detail">
+                <!-- 头部信息：海报+基本信息 -->
+                <div class="detail-header">
+                    <div class="poster-area">
+                        <img :src="movie.cover" alt="沙丘2" class="movie-poster">
+                        <div class="poster-actions">
+                            <button class="watch-btn">
+                                <i class="fas fa-star"></i> 收藏
+                            </button>
+                            <!-- 新增：打分按钮 -->
+                            <button class="rate-btn" @click="showRating = true">
+                                <i class="fas fa-star-half-alt"></i> 打分
+                            </button>
                         </div>
                     </div>
 
-                    <!-- 剧情简介 -->
-                    <div class="section">
-                        <h2 class="section-title">
-                            <i class="fas fa-book-open title-icon"></i> 剧情简介
-                        </h2>
-                        <div class="section-content">
-                            {{ movie.body }}
+                    <div class="info-area">
+                        <h1 class="movie-title">{{ movie.title }}</h1>
+                        <div class="movie-meta">
+                            <span class="meta-item score">{{ movie.score }} <i class="fas fa-star"></i></span>
+                            <span class="meta-item type">{{ movie.column.name }}</span>
+                            <span class="meta-item year">{{ movie.date }}</span>
+                            <span class="meta-item duration">166 分钟</span>
+                            <span class="meta-item director">导演：{{ movie.director }}</span>
+                        </div>
+                        <div class="movie-tags">
+                            <span class="movie-tag">热映</span>
+                            <span class="movie-tag">奥斯卡</span>
+                            <span class="movie-tag">票房冠军</span>
+                            <span class="movie-tag">IMDb Top 250</span>
+                        </div>
+                        <div class="movie-desc">
+                            保罗·厄崔迪与查尼·弗雷曼联手，带领弗雷曼人展开反抗，誓要向哈克南家族复仇。在沙漠星球阿拉基斯的残酷环境中，他们将利用神秘的香料和弗雷曼人的战斗技巧，掀起一场改变宇宙格局的战争。
                         </div>
                     </div>
+                </div>
 
-                    <!-- 主演列表 -->
-                    <div class="section">
-                        <h2 class="section-title">
-                            <i class="fas fa-users title-icon"></i> 主演
-                        </h2>
-                        <div class="actor-list">
-                            <div class="actor-item">
-                                <img src="https://picsum.photos/id/64/200/200" alt="提莫西·查拉梅" class="actor-avatar">
-                                <div class="actor-name">提莫西·查拉梅</div>
-                                <div class="actor-role">保罗·厄崔迪</div>
-                            </div>
-                            <div class="actor-item">
-                                <img src="https://picsum.photos/id/91/200/200" alt="赞达亚" class="actor-avatar">
-                                <div class="actor-name">赞达亚</div>
-                                <div class="actor-role">查尼·弗雷曼</div>
-                            </div>
-                            <div class="actor-item">
-                                <img src="https://picsum.photos/id/26/200/200" alt="丽贝卡·弗格森" class="actor-avatar">
-                                <div class="actor-name">丽贝卡·弗格森</div>
-                                <div class="actor-role">杰西卡夫人</div>
-                            </div>
-                            <div class="actor-item">
-                                <img src="https://picsum.photos/id/177/200/200" alt="哈维尔·巴登" class="actor-avatar">
-                                <div class="actor-name">哈维尔·巴登</div>
-                                <div class="actor-role">斯蒂加尔</div>
-                            </div>
+                <!-- 剧情简介 -->
+                <div class="section">
+                    <h2 class="section-title">
+                        <i class="fas fa-book-open title-icon"></i> 剧情简介
+                    </h2>
+                    <div class="section-content">
+                        {{ movie.body }}
+                    </div>
+                </div>
+
+                <!-- 主演列表 -->
+                <div class="section">
+                    <h2 class="section-title">
+                        <i class="fas fa-users title-icon"></i> 主演
+                    </h2>
+                    <div class="actor-list">
+                        <div class="actor-item">
+                            <img src="https://picsum.photos/id/64/200/200" alt="提莫西·查拉梅" class="actor-avatar">
+                            <div class="actor-name">提莫西·查拉梅</div>
+                            <div class="actor-role">保罗·厄崔迪</div>
+                        </div>
+                        <div class="actor-item">
+                            <img src="https://picsum.photos/id/91/200/200" alt="赞达亚" class="actor-avatar">
+                            <div class="actor-name">赞达亚</div>
+                            <div class="actor-role">查尼·弗雷曼</div>
+                        </div>
+                        <div class="actor-item">
+                            <img src="https://picsum.photos/id/26/200/200" alt="丽贝卡·弗格森" class="actor-avatar">
+                            <div class="actor-name">丽贝卡·弗格森</div>
+                            <div class="actor-role">杰西卡夫人</div>
+                        </div>
+                        <div class="actor-item">
+                            <img src="https://picsum.photos/id/177/200/200" alt="哈维尔·巴登" class="actor-avatar">
+                            <div class="actor-name">哈维尔·巴登</div>
+                            <div class="actor-role">斯蒂加尔</div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- 相关推荐 -->
-                    <div class="section">
-                        <h2 class="section-title">
-                            <i class="fas fa-thumbs-up title-icon"></i> 相关推荐
-                        </h2>
-                        <div class="recommend-list">
-                            <div class="recommend-item">
-                                <img src="https://picsum.photos/id/237/400/600" alt="奥本海默" class="recommend-poster">
-                                <div class="recommend-info">
-                                    <div class="recommend-title">奥本海默</div>
-                                    <div class="recommend-score">9.1 <i class="fas fa-star"></i></div>
-                                </div>
+                <!-- 相关推荐 -->
+                <div class="section">
+                    <h2 class="section-title">
+                        <i class="fas fa-thumbs-up title-icon"></i> 相关推荐
+                    </h2>
+                    <div class="recommend-list">
+                        <div class="recommend-item">
+                            <img src="https://picsum.photos/id/237/400/600" alt="奥本海默" class="recommend-poster">
+                            <div class="recommend-info">
+                                <div class="recommend-title">奥本海默</div>
+                                <div class="recommend-score">9.1 <i class="fas fa-star"></i></div>
                             </div>
-                            <div class="recommend-item">
-                                <img src="https://picsum.photos/id/119/400/600" alt="瞬息全宇宙" class="recommend-poster">
-                                <div class="recommend-info">
-                                    <div class="recommend-title">瞬息全宇宙</div>
-                                    <div class="recommend-score">8.8 <i class="fas fa-star"></i></div>
-                                </div>
+                        </div>
+                        <div class="recommend-item">
+                            <img src="https://picsum.photos/id/119/400/600" alt="瞬息全宇宙" class="recommend-poster">
+                            <div class="recommend-info">
+                                <div class="recommend-title">瞬息全宇宙</div>
+                                <div class="recommend-score">8.8 <i class="fas fa-star"></i></div>
                             </div>
-                            <div class="recommend-item">
-                                <img src="https://picsum.photos/id/26/400/600" alt="蜘蛛侠：纵横宇宙" class="recommend-poster">
-                                <div class="recommend-info">
-                                    <div class="recommend-title">蜘蛛侠：纵横宇宙</div>
-                                    <div class="recommend-score">8.9 <i class="fas fa-star"></i></div>
-                                </div>
+                        </div>
+                        <div class="recommend-item">
+                            <img src="https://picsum.photos/id/26/400/600" alt="蜘蛛侠：纵横宇宙" class="recommend-poster">
+                            <div class="recommend-info">
+                                <div class="recommend-title">蜘蛛侠：纵横宇宙</div>
+                                <div class="recommend-score">8.9 <i class="fas fa-star"></i></div>
                             </div>
-                            <div class="recommend-item">
-                                <img src="https://picsum.photos/id/133/400/600" alt="银翼杀手2049" class="recommend-poster">
-                                <div class="recommend-info">
-                                    <div class="recommend-title">银翼杀手2049</div>
-                                    <div class="recommend-score">8.7 <i class="fas fa-star"></i></div>
-                                </div>
+                        </div>
+                        <div class="recommend-item">
+                            <img src="https://picsum.photos/id/133/400/600" alt="银翼杀手2049" class="recommend-poster">
+                            <div class="recommend-info">
+                                <div class="recommend-title">银翼杀手2049</div>
+                                <div class="recommend-score">8.7 <i class="fas fa-star"></i></div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        <CommentTextArea :aid="movie._id" />
-        <CommentList :comments="movie.comments" />
-    </Scroll>
+            <CommentTextArea :aid="movie._id" />
+            <CommentList :comments="movie.comments" />
+            <MovieScore v-show="showRating" :movie="movie" @close="showRating = false"
+                @updateScore="handleUpdateScore" />
+        </div>
 
+
+
+    </Scroll>
 </template>
 
 <script>
@@ -124,17 +131,19 @@
 import CommentTextArea from '@/components/comment/CommentTextArea'
 import CommentList from '@/components/comment/CommentList'
 import MINXIN from '@/core/minxin'
+import MovieScore from '@/components/movie/MovieScore.vue'
 export default {
     name: 'Movie',
     components: {
-        CommentTextArea, CommentList
+        CommentTextArea, CommentList, MovieScore
     },
     data() {
         return {
             id: '',
             movie: {},
             mixins: [MINXIN],
-            isRouteLoading: true
+            isRouteLoading: true,
+            showRating: false // 控制打分弹窗显示/隐藏
         };
     },
     provide() {
@@ -144,6 +153,15 @@ export default {
     },
     created() {
         this.id = this.$route.params.id
+    },
+    watch: {
+        showRating: {
+            handler(val) {
+                console.log('showRating changed:', val);
+
+            },
+            immediate: true // 立即执行一次
+        }
     },
 
     mounted() {
@@ -156,6 +174,8 @@ export default {
     },
     beforeDestroy() {
         this.$EventBus.$off('movie-like-updated')
+        // 恢复页面滚动
+        document.body.style.overflow = ''
     },
     computed: {
         like_num() {
@@ -165,7 +185,6 @@ export default {
     },
     methods: {
         reload() {
-            this.isRouteLoading = false
             this.$nextTick(() => {
                 this.isRouteLoading = true
                 this.getMovieById()
@@ -181,11 +200,21 @@ export default {
                 })
             })
         },
+        // 监听弹窗显示状态，控制页面滚动
+        getCurrentPath() {
+            return this.$route.path
+        },
+
+        // 处理评分更新事件
+        handleUpdateScore(newScore) {
+            this.showRating = false;
+            console.log('newScore:', newScore);
+            this.reload();
+        }
+
     },
 
-    getCurrentPath() {
-        return this.$route.path
-    }
+
 };
 </script>
 
@@ -194,6 +223,7 @@ export default {
   width 100%
 :root {
     --primary: #E50914; /* 红色主色调 */
+    --primary-light: #FF4444; /* 浅红色 */
     --light-black: #252525; /* 浅黑背景 */
     --lighter-black: #333333; /* 更浅黑色 */
     --gray: #AAAAAA; /* 次级文字 */
@@ -215,8 +245,7 @@ export default {
 }
 
 /* 胶片顶部/底部齿孔 */
-.film-strip::before,
-.film-strip::after {
+.film-strip::before{
     content: '';
     position: absolute;
     left: 0;
@@ -295,6 +324,20 @@ export default {
     background-color: #C00812;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(229,9,20,0.3);
+}
+
+/* 新增：打分按钮样式 */
+.rate-btn {
+    background-color: var(--light-black);
+    color: var(--light);
+    border: 1px solid var(--border-color);
+}
+
+.rate-btn:hover {
+    background-color: #3A3A3A;
+    border-color: var(--primary);
+    color: var(--primary);
+    transform: translateY(-2px);
 }
 
 .collect-btn {
@@ -508,6 +551,22 @@ export default {
     font-weight: 600;
 }
 
+
+
+
+
+/* 弹窗动画 */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 /* 响应式适配 */
 @media (max-width: 1024px) {
     .recommend-item {
@@ -540,6 +599,29 @@ export default {
     .recommend-item {
         width: calc(50% - 15px);
     }
+
+    /* 弹窗响应式 */
+    .rating-content {
+        padding: 25px 20px;
+        max-width: 90%;
+    }
+
+    .rating-stars {
+        gap: 15px;
+    }
+
+    .star-item {
+        font-size: 38px;
+    }
+
+    .rating-desc {
+        gap: 25px;
+    }
+
+    .rating-btn {
+        padding: 10px 25px;
+        font-size: 14px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -553,6 +635,29 @@ export default {
     }
 
     .recommend-item {
+        width: 100%;
+    }
+
+    /* 弹窗响应式 */
+    .rating-stars {
+        gap: 10px;
+    }
+
+    .star-item {
+        font-size: 32px;
+    }
+
+    .rating-desc {
+        gap: 15px;
+        font-size: 12px;
+    }
+
+    .rating-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .rating-btn {
         width: 100%;
     }
 }
