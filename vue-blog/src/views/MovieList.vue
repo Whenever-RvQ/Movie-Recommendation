@@ -92,7 +92,7 @@ export default {
       this.getMovies()
       setTimeout(() => {
         this.refreshSearch()
-      }, 1000)
+      }, 500)
     })
   },
   methods: {
@@ -118,7 +118,7 @@ export default {
     },
     setQuery() {
       let column = this.$route.query?.columnId
-      let q = this.q||undefined;
+      let q = this.$route.query?.q || this.q || undefined;
       let query = JSON.parse(JSON.stringify({
         column, q
       }))
@@ -144,7 +144,7 @@ export default {
         this.getMovies()
       }
     }, 500, false),
-    getMovies() {
+    async getMovies() {
 
       let data = { size: this.size, page: this.page }
       let query = this.setQuery()
@@ -152,7 +152,7 @@ export default {
         data.query = QS.stringify(query)
       }
       console.log(data)
-      this.$api({ type: 'movies', data }).then(result => {
+      await this.$api({ type: 'movies', data }).then(result => {
         // 关键修改：在这里判断是否显示404页面
         if (result.list.length === 0 && this.page === 1) {
           // 搜索但没有结果，显示404

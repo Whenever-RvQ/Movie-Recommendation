@@ -150,10 +150,16 @@ export default {
       }
       return true
     },
+
+    getContentText() {
+      let tempDiv = document.createElement('div');
+      tempDiv.innerHTML = this.content;
+      return tempDiv.textContent || tempDiv.innerText || '';
+    },
     async postEditorData() {
       let postData = {
         title: this.title,
-        body: this.content,
+        body: this.getContentText(),
         cover: this.getCover(),
         column: this.column || COLUMN_ID,
         director: this.director,
@@ -177,6 +183,7 @@ export default {
       }
     }
   },
+
   beforeDestroy() {
     this.editor.destroy()
     this.editor = null
