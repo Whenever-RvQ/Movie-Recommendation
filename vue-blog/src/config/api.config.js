@@ -19,6 +19,10 @@ export default {
     url: '/api/rest/users/:id',
     method: 'PUT',
   },
+  'putArticleCount': {
+    url: '/api/rest/users/:id',
+    method: 'PUT',
+  },
   'putMovieInfo': {
     url: '/api/rest/movies/:id',
     method: 'PUT',
@@ -88,14 +92,14 @@ export default {
     url: '/api/rest/articles/:id',
     method: 'PUT'
   },
-    'putMovieLikeNum': {
+  'putMovieLikeNum': {
     url: '/api/rest/movies/:id',
     method: 'PUT'
   },
-  'movies':{
+  'movies': {
     url: '/api/rest/movies',
     method: 'GET'
   },
 
-  
+
 }

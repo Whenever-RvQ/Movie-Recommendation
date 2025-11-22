@@ -8,7 +8,7 @@
                     <div class="poster-area">
                         <img :src="movie.cover" alt="沙丘2" class="movie-poster">
                         <div class="poster-actions">
-                            <button class="watch-btn">
+                            <button class="watch-btn" @click.stop.prevent="handleCollect(movie, movie._id)">
                                 <i class="fas fa-star"></i> 收藏
                             </button>
                             <!-- 新增：打分按钮 -->
@@ -143,6 +143,7 @@ export default {
             movie: {},
             mixins: [MINXIN],
             isRouteLoading: true,
+            userInfo: this.$store.state.userInfo,
             showRating: false // 控制打分弹窗显示/隐藏
         };
     },
@@ -210,6 +211,68 @@ export default {
             this.showRating = false;
             console.log('newScore:', newScore);
             this.reload();
+        },
+
+        // 收藏功能（示例）
+        handleCollect(movie, id) {
+            // 实际项目中添加收藏接口逻辑
+            let status;
+            let updateList = this.userInfo.collectList.map(item => item.toString());;
+            console.log(updateList);
+            if (this.userInfo.collectList && this.userInfo.collectList.includes(id)) {
+                status = true;
+                updateList = this.userInfo.collectList.filter(item => item !== id);
+                this.$api({
+                    type: 'putMovieInfo',
+                    data: {
+                        collectList: updateList
+                    },
+                    params: {
+                        id: this.userInfo._id,
+                    }
+
+                }
+
+                ).then(res => {
+                    console.log(res);
+                    movie.isCollected = !status;
+                    this.$notify.success({ title: '操作成功', message: '已取消收藏' });
+                    const updatedUserInfo = { ...this.userInfo, collectList: updateList };
+                    this.$store.commit('SET_USERINFO', updatedUserInfo);
+                    this.userInfo = this.$store.state.userInfo;
+                    this.reload();
+                }).catch(err => {
+                    this.$notify.error({ title: '收藏失败', message: err.message });
+                });
+            }
+            else {
+                status = false;
+                updateList = this.userInfo.collectList ? [...this.userInfo.collectList, id] : [id];
+                this.$api({
+                    type: 'putMovieInfo',
+                    data: {
+                        collectList: updateList
+                    },
+                    params: {
+                        id: this.userInfo._id,
+                    }
+
+                }
+
+                ).then(res => {
+                    console.log(res);
+                    movie.isCollected = !status;
+                    this.$notify.success({ title: '操作成功', message: '已加入收藏' });
+                    const updatedUserInfo = { ...this.userInfo, collectList: updateList };
+                    this.$store.commit('SET_USERINFO', updatedUserInfo);
+                    this.userInfo = this.$store.state.userInfo;
+                    this.reload();
+                }).catch(err => {
+                    this.$notify.error({ title: '收藏失败', message: err.message });
+                });
+            }
+            console.log(status);
+
         }
 
     },

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const {encrypt } = require('../core/util/util')
+const { encrypt } = require('../core/util/util')
 
 /*
   username: 用户名 
@@ -58,7 +58,7 @@ const schema = new mongoose.Schema({
     index: true,
     type: String,
     validate: {
-      validator (val) {
+      validator(val) {
         return /^(?!\d+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,8}$/.test(val)
       },
       message: "用户名必须为: 数字+字母 6-8位"
@@ -72,16 +72,16 @@ const schema = new mongoose.Schema({
     select: false,
     required: [true, '密码必填'],
     validate: {
-      validator (val) {
-        return val!=='密码格式不正确'
+      validator(val) {
+        return val !== '密码格式不正确'
       },
       message: "密码必须为: 数字+字母 8-12位"
     },
-    set (val) {
+    set(val) {
       let originalVal = encrypt(val)
-      let isValidate =/^(?=.*[a-z])(?=.*\d)[a-zA-Z\d!.#*?&]{8,12}$/.test(val)
+      let isValidate = /^(?=.*[a-z])(?=.*\d)[a-zA-Z\d!.#*?&]{8,12}$/.test(val)
       //触发器 setter 写入password时触发 写入数据 => encrypt(源数据)
-      if(isValidate){
+      if (isValidate) {
         return originalVal
       }
       else return '密码格式不正确'
@@ -114,19 +114,25 @@ const schema = new mongoose.Schema({
   },
 
   articleCount: {
-    type:Number,
-    default:0
-  },
-
-  columnCount:{
-    type:Number,
+    type: Number,
     default: 0
   },
 
-  signature:{
+  columnCount: {
+    type: Number,
+    default: 0
+  },
+
+  signature: {
     type: String,
-    default:"这个入很懒，什么都没有留下"
-  }
+    default: "这个入很懒，什么都没有留下"
+  },
+  collectList: [
+    {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: "Movie"
+    }
+  ]
 })
 
 let User = mongoose.model('User', schema)

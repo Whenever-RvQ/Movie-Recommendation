@@ -65,10 +65,10 @@ const schema = new mongoose.Schema({
     required: true,
     ref: 'Column',
   },
-  isCollected:{
-    type: Boolean,
-    default: false
-  }
+  // isCollected:{
+  //   type: Boolean,
+  //   default: false
+  // }
 })
 
 module.exports = mongoose.model('Movie', schema)

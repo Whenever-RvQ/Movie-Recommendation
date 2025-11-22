@@ -60,6 +60,17 @@ export default {
                         id: this.movie._id
                     }
                 });
+                let articleCount= this.$store.state.userInfo.articleCount+=1
+                // 更新文章评分统计
+                await this.$api({
+                    type: 'putArticleCount',
+                    data: {
+                        articleCount: articleCount
+                    },
+                    params: {
+                        id: this.$store.state.userInfo._id
+                    }
+                });
                 if (res) {
                     // 显示成功提示
                     this.$notify.success({

@@ -10,7 +10,7 @@
         <span class="meta-item date">{{ movie.date }}</span>
       </div>
       <div class="item-desc">
-       简介： {{ content }}...
+        简介： {{ content }}...
       </div>
       <div class="item-stats">
         <span class="stat-item hit">
@@ -181,6 +181,97 @@ $transition = all 0.3s ease
 .collect-btn i
     color: red !important
     scale: 1.2
+
+.movie-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      width: 600px;
+      padding: 20px;
+      background-color: #444;
+      border-radius: 4px;
+    }
+
+  /* 海报区域 */
+  .movie-poster img {
+    width: 180px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 4px;
+  }
+
+  /* 信息区域 */
+  .movie-info {
+    flex: 1;
+  }
+
+  /* 标题 */
+  .movie-title {
+    margin: 0 0 10px 0;
+    font-size: 22px;
+    color: #fff;
+  }
+
+  /* 导演+年份 */
+  .base-info {
+    margin-bottom: 15px;
+    font-size: 14px;
+    color: #ccc;
+  }
+  .base-info .year {
+    margin-left: 10px;
+  }
+
+  /* 简介 */
+  .movie-desc {
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: #eee;
+    line-height: 1.5;
+  }
+
+  /* 数据统计（保留原样式） */
+  .stats {
+    margin-bottom: 20px;
+    font-size: 13px;
+    color: #ccc;
+  }
+  .stats span {
+    margin-right: 15px;
+  }
+  .stats .view::before {
+    content: "👁️ ";
+    margin-right: 3px;
+  }
+  .stats .like::before {
+    content: "⭐ ";
+    margin-right: 3px;
+  }
+  .stats .comment::before {
+    content: "💬 ";
+    margin-right: 3px;
+  }
+
+  /* 按钮区域（新增通过/驳回） */
+  .btn-group {
+    display: flex;
+    gap: 10px;
+  }
+  .btn {
+    padding: 8px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  .btn-pass {
+    background-color: #28a745;
+    color: #fff;
+  }
+  .btn-reject {
+    background-color: #dc3545;
+    color: #fff;
+  }
 // 响应式适配
 @media (max-width: 768px)
   .movie-item

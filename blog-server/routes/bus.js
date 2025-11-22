@@ -67,7 +67,7 @@ router.put('/:id', async (req, res, next) => {
   try {
     let putData = req.body
     let modelName = req.Model.modelName
-    console.log(req.params)
+    console.log(putData)
     let id = req.params.id
     let updateData, result
     let isValidate = (modelName in POP_PUT_MAP)

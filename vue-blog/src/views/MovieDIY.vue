@@ -40,8 +40,8 @@ export default {
       query: {
         column: '',
         q: '',
-        isCollected:true
-      }
+      },
+      userInfo: this.$store.state.userInfo,
     };
   },
   watch: {
@@ -120,9 +120,8 @@ export default {
     setQuery() {
       let column = this.$route.query?.columnId
       let q = this.q||undefined;
-      let isCollected=true
       let query = JSON.parse(JSON.stringify({
-        column, q,isCollected
+        column, q,
       }))
       return query
     },
@@ -167,7 +166,12 @@ export default {
         } else {
           // 正常显示文章
           this.show404 = false;
-          this.movies.push(...result.list)
+          let collectList=this.userInfo.collectList.map(item=>item.toString())
+          let diyList=result.list.filter(item=>{
+            return collectList.includes(item._id.toString())
+          })
+          console.log(diyList)
+          this.movies.push(...diyList)
           this.closeLoadClock() //调用父组件provide传递的关闭load锁方法
           this.page++
         }

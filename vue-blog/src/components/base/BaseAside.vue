@@ -16,10 +16,10 @@
             </a>
           </div>
           <div class="blog-state--item">
-            <a href="#">
-              <span class="blog-state--count">{{userInfo.columnCount}}</span>
+            <router-link to="/diy">
+              <span class="blog-state--count">{{userInfo.collectList.length}}</span>
               <span class="blog-state--name">收藏</span>
-            </a>
+            </router-link>
           </div>
         </div>
         <p class="blog-info--content">{{userInfo.signature}}</p>
